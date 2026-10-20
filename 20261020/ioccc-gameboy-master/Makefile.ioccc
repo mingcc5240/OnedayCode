@@ -1,0 +1,229 @@
+#!/usr/bin/env make
+#
+# YYYY/XXX 	<<=== The IOCCC Judges will replace this line
+
+#############################
+# shell used by this Makefile
+#############################
+
+SHELL= bash
+
+
+#######################
+# common tool locations
+#######################
+#
+# XXX - The IOCCC judges will remove this line and uncomment the next line later
+# include ../../var.mk var.mk
+
+# XXX - for now, set some common tool locations
+# XXX - once var.mk is in use, the IOCCC judges will remove the section below
+CC= cc
+CHMOD= chmod
+CLANG= clang
+CLANG_FORMAT= clang-format
+CPP= cpp
+GCC= gcc
+MV= mv
+RM= rm
+RMDIR= rmdir
+TRUE= true
+
+
+#####################
+# C compiler settings
+#####################
+
+# Common C compiler warnings to silence
+#
+# Example: CSILENCE= -Wno-int-conversion
+#
+CSILENCE= -Wno-implicit-int -Wno-return-type -Wno-parentheses -Wno-misleading-indentation \
+          -Wno-unused-result -Wno-return-mismatch
+
+# Attempt to silence unknown warning options
+#
+CUNKNOWN= -Wno-unknown-warning-option
+
+# Common C compiler warning flags
+#
+# NOTE: The addition of -pedantic to CWARN is a challenge that
+#       You may wish to avoid if it proves too problematic.
+#       There is NO penalty for removing -pedantic from CWARN.
+#
+CWARN= -Wall -Wextra ${CSILENCE} ${CUNKNOWN}
+# -pedantic
+
+# Compiler standard
+#
+CSTD= -std=gnu17
+
+# Compiler bit architecture
+#
+# Example for 32-bitness: ARCH= -m32
+# Example for 64-bitness: ARCH= -m64
+#
+# NOTE: Normally one should NOT specify a specific architecture.
+#
+ARCH=
+
+# Defines that are needed to compile
+#
+# Example: -Dfoo -Dbar=baz
+#
+CDEFINE=-DK='"dawskj \r"' -DR='{0,19,0,216,1,77,176,1}' -DC='I(F++)'
+
+# Include files that are needed to compile
+#
+# Example: CINCLUDE= -include stdio.h
+#
+CINCLUDE=-include iso646.h -include string.h -include stdio.h -include unistd.h
+
+# Other flags to pass to the C compiler
+#
+# Example: COTHER= -fno-math-errno
+#
+COTHER=
+
+# Optimization
+#
+# NOTE: Feel free to change the level of compiler optimization.
+#       The "-O3" is just a friendly default you might wish to try.
+#
+# Example: OPT= -O0 -g
+#
+OPT= -O3
+
+# Default flags for ANSI C compilation
+#
+CFLAGS= ${CSTD} ${CWARN} ${ARCH} ${CDEFINE} ${CINCLUDE} ${COTHER} ${OPT}
+
+# Libraries needed to build
+#
+# Example: LDFLAGS= -lncurses -lm
+#
+LDFLAGS=
+
+# C compiler to use
+#
+# NOTE: The IOCCC Judges recommend you leave CC as just "cc"
+#       and NOT set it to clang, or gcc, or something else
+#       unless you have a STRONG reason to do so.
+#
+#       Setting CC to something other than "cc" makes your
+#       code less portable to those who do not have your
+#       particular C compiler.  **hint**
+#
+#       If you want to test your code with a particular C compiler,
+#       use the make command line.  For example:
+#
+#           make all CC=clang
+#           make all CC=gcc
+#
+CC= cc
+
+# Compiler add-ons or replacements for clang only
+#
+ifeq "$(findstring $(CLANG),${CC})" "$(CLANG)"
+#
+# NOTE: This code is only invoked when CC contains "clang"
+#       such as when you use the make command lines like:
+#
+#           make all CC=clang
+#           make all CC=clang-mp-12
+#
+CSILENCE+= -Wno-unsafe-buffer-usage -Wno-missing-variable-declarations -Wno-sign-conversion \
+           -Wno-implicit-int-conversion -Wno-comma -Wno-missing-prototypes -Wno-strict-prototypes
+#
+CWARN+= -Weverything
+#
+endif
+
+# Specific add-ons or replacements for gcc only
+#
+ifeq "$(findstring $(GCC),${CC})" "$(GCC)"
+#
+# NOTE: This code is only invoked when CC contains "gcc"
+#       such as when you use the make command lines like:
+#
+#    make all CC=gcc
+#    make all CC=gcc-15
+#
+CSILENCE+=
+#
+CWARN+=
+#
+endif
+
+
+###########################################
+# Special Makefile variables for this entry
+###########################################
+
+#ENTRY= XXX - The IOCCC judges will change this line later
+PROG= prog
+#
+OBJ= ${PROG}.o
+TARGET= ${PROG}
+
+# list any data files supplied with your submission
+#
+# Example: DATA= curds whey
+#
+DATA= roms/Test.gb roms/Pi.gb roms/Oxo3d.gb roms/GBChess.gb
+
+# NOTE: Add any new Makefile variables your code might need below.
+#
+# Example: WIDTH= 120
+#
+
+
+#################
+# build the entry
+#################
+
+all: data ${TARGET}
+	@${TRUE}
+
+.PHONY: all alt data everything clean clobber
+
+${PROG}: ${PROG}.c
+	${CC} ${CFLAGS} ${PROG}.c -o $@ ${LDFLAGS}
+
+# alternative executable
+#
+alt: data ${ALT_TARGET}
+	@${TRUE}
+
+${PROG}.alt: ${PROG}.alt.c
+	${CC} ${CFLAGS} ${PROG}.alt.c -o $@ ${LDFLAGS}
+
+# data files
+#
+data: ${DATA}
+	@${TRUE}
+
+# both all and alt
+#
+everything: all alt
+	@${TRUE}
+
+
+###############
+# utility rules
+###############
+#
+clean:
+	${RM} -f ${OBJ} ${ALT_OBJ}
+
+clobber: clean
+	rm -f roms/TicTacToe.gb roms/Breakout.gb roms/GameOfLife.gb roms/2048.gb
+	${RM} -f ${TARGET} ${ALT_TARGET}
+	${RM} -rf *.dSYM
+
+
+######################################
+# optional include of 1337 hacker rulz
+######################################
+
+-include 1337.mk ../1337.mk ../../1337.mk
