@@ -1,0 +1,62 @@
+/*
+PC의 SDL3와 read() 함수를 걷어내고, 아두이노 환경(SPI TFT LCD 또는 OLED)에서 돌아가도록 재작성한 스케치 구조입니다.
+*/
+#include <Arduino.h>
+
+// 보드 메모리에 맞춰 크기 조절 (예: RP2040이나 ESP32에서는 32768개 = 128KB)
+#define MEM_SIZE 32768 
+int32_t s[MEM_SIZE]; 
+
+int32_t e = 0; // 프로그램 카운터 (PC)
+int32_t b = 0; // 사이클 카운터
+int32_t _, y, t;
+
+// 1. 피연산자 디코딩 매크로 (원본과 100% 동일)
+#define o s[1 & s[t = e++] ? s[t] / 4 : t] / 4, t
+
+void setup() {
+    Serial.begin(115200);
+    pinMode(BUTTON_PIN, INPUT_PULLUP); // 키보드 대신 물리 버튼 연결
+
+    // TODO: 디스플레이 초기화 (예: tft.begin() 또는 display.begin())
+    // TODO: SD카드나 내장 Flash에서 rom.bin 데이터를 배열 s[]로 복사
+}
+
+void loop() {
+    // 아두이노의 워치독 타이머(WDT) 리셋을 방지하기 위해 10만 사이클 단위로 끊어서 실행
+    for (int step = 0; step < 100000; step++) {
+        _ = o = y = o = o;
+
+        if (~_) {
+            if (~y) {
+                // 핵심 Subleq 연산: s[y] -= s[_]
+                if (1 > (s[y] -= s[_])) {
+                    e = t; // 결과가 0 이하이면 점프
+                } 
+                else if (*s && ++b > 50000) { // MCU 속도에 맞춰 인터럽트 주기 조절
+                    // [화면 갱신] s[6]이 가리키는 VRAM 데이터를 LCD/OLED로 전송
+                    // 예: tft.pushImage(0, 0, 160, 128, (uint16_t*)(s + s[6]));
+                    
+                    b = 0;
+                    int32_t next_e = *s / 4;
+                    s[0] = 4 * e; // 현재 PC 백업
+                    e = next_e;   // 인터럽트 핸들러로 점프
+                }
+            }
+        } else {
+            // [입력 처리] _가 -1일 때: SDL_PollEvent 대신 아두이노 버튼 상태 읽기
+            if (digitalRead(BUTTON_PIN) == LOW) {
+                s[y] = 44; // 예: 스페이스바 스캔코드(44) 전달
+            } else {
+                s[y] = 0;
+            }
+        }
+
+        // [시간 처리] _가 64일 때: timespec_get 대신 아두이노 millis() / micros() 저장
+        if (_ == 64) {
+            uint32_t now_ms = millis();
+            s[64] = now_ms / 1000;           // 초(sec)
+            s[65] = (now_ms % 1000) * 1000000; // 나노초(nsec)
+        }
+    }
+}
