@@ -4,6 +4,9 @@
 이 프로그램은 가상 머신을 구동하는 프로그램인데, Subeq라는 명령어 한개로 이루어진 머신을 에뮬레이트한다.
 Have a nice day!!
 
+**컴파일하는 방법
+gcc -O3 -std=gnu89 -Wno-implicit-int -Wno-incompatible-pointer-types -Wno-implicit-function-declaration -o prog prog.c -lSDL3
+
 [질문1]
 이런 구조의 가상머신으로 리눅스를 만들고, 둠 게임이 실행되는 원리는 무엇인가요? 또한, 이렇게 간단한 구조의 컴퓨터를 하드웨어적으로 설계하는 것이 가능할까요?
 
