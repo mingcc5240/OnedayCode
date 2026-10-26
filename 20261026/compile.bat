@@ -1,0 +1,1 @@
+d:\game\mingw32\bin\gcc -m32 -O3 -w 8086tiny_ob.c -lgdi32 -o 8086tiny.exe -static
