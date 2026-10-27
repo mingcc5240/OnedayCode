@@ -1,0 +1,1 @@
+gcc -m32 -Ofast -o psxe.exe  frontend/*.c psx/*.c psx/dev/*.c psx/dev/cdrom/*.c psx/input/*.c -I. -Ifrontend -lSDL2 -static -lmingw32 -lSDL2 -lgdi32 -lole32 -lsetupapi -lwinmm -limm32 -lversion -loleaut32 -lmingwex -lmsvcrt 
