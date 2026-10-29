@@ -1,0 +1,5 @@
+D:\Game\psx1\PCSX-Reloaded\pcsxr\plugins\bladesio1\connection.c;D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\connection.obj
+D:\Game\psx1\PCSX-Reloaded\pcsxr\plugins\bladesio1\fifo.c;D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\fifo.obj
+D:\Game\psx1\PCSX-Reloaded\pcsxr\plugins\bladesio1\sio1.c;D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\sio1.obj
+D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\winsrc\cfg-winapi.c;D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\cfg-winapi.obj
+D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\winsrc\winmain.c;D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\winmain.obj

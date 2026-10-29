@@ -1,0 +1,11 @@
+﻿  connection.c
+  fifo.c
+D:\Game\psx1\PCSX-Reloaded\pcsxr\plugins\bladesio1\connection.c(107,15): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  sio1.c
+  cfg-winapi.c
+D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\winsrc\cfg-winapi.c(34,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\winsrc\cfg-winapi.c(77,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  winmain.c
+  코드를 생성하고 있습니다...
+     .\Release/bladesio1.lib 라이브러리 및 .\Release/bladesio1.exp 개체를 생성하고 있습니다.
+  bladesio1.vcxproj -> D:\Game\psx1\PCSX-Reloaded\pcsxr\win32\plugins\bladesio1\Release\bladesio1.dll
