@@ -112,14 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_OPENGL;HAVE_RICE;HAVE_THR_AL;HAVE_GLIDE64;__LIBRETRO__;M64P_PLUGIN_API;M64P_CORE_PROTOTYPES;_ENDUSER_RELEASE;SINC_LOWER_QUALITY;NOSSE;NO_ASM;NO_LIBCO;ENABLE_3POINT;ENABLE_TEXTURE_SAMPLING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\2026\20261030\n64wasm\code\MyLib\include;E:\2026\20261030\n64wasm\code\src\mupen64plus-core\src\api;E:\2026\20261030\n64wasm\code\src\libretro-common\include;E:\2026\20261030\n64wasm\code\src\include;E:\2026\20261030\n64wasm\code\src\mupen64plus-core\src;E:\2026\20261030\n64wasm\code\src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\MyLib\include;.\src\mupen64plus-core\src\api;.\src\libretro-common\include;.\src\include;.\src\mupen64plus-core\src;.\src\libretro;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\2026\20261030\n64wasm\code\MyLib\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\MyLib\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
