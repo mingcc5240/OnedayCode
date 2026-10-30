@@ -1,0 +1,10 @@
+LIBRARY "N64Wasm"
+EXPORTS
+    VB_N64_Init
+    VB_N64_RunFrame
+    VB_N64_SetInput
+    VB_N64_SaveState
+    VB_N64_LoadState
+    VB_N64_SetDoubleSpeed
+    VB_N64_ShowFPS
+    VB_N64_Shutdown

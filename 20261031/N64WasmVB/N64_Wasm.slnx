@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="N64_Wasm.vcxproj" Id="113205f4-f6d0-4dc9-9467-289ea5518613" />
+</Solution>
