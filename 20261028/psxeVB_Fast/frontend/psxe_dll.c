@@ -13,6 +13,8 @@
 #define VB6_API __declspec(dllexport) __stdcall
 
 #include <time.h>
+// [해결] 컴파일러가 PSXE_Shutdown 함수를 미리 인식할 수 있도록 프로토타입 선언 추가
+void VB6_API PSXE_Shutdown(void);
 
 // 전역 FPS 카운터 변수들
 static int g_frame_count = 0;
@@ -74,8 +76,11 @@ static const char* sanitize_path(const char* path) {
 
 // 1. 에뮬레이터 초기화 (성공 시 0 반환, 실패 시 에러 코드 1, 2, 3 반환)
 int VB6_API PSXE_Init(HWND hwnd, const char* bios_path, const char* exp_path, const char* cd_path, const char* exe_path) {
-    if (g_psx != NULL) return -1;
-
+    //if (g_psx != NULL) return -1;
+    // [핵심 수정] 만약 이전 인스턴스가 남아있다면 강제 종료 대신 안전하게 먼저 해제합니다.
+    if (g_psx != NULL || g_screen != NULL) {
+        PSXE_Shutdown();
+    }
     const char* safe_bios = sanitize_path(bios_path);
     const char* safe_exp = sanitize_path(exp_path);
     const char* safe_cd = sanitize_path(cd_path);
@@ -239,6 +244,9 @@ void VB6_API PSXE_Shutdown(void) {
         SDL_CloseAudioDevice(g_audio_dev);
         g_audio_dev = 0;
     }
+
+    // [추가] 오디오 서브시스템 자체를 닫아줍니다.
+    SDL_QuitSubSystem(SDL_INIT_AUDIO);
 
     if (g_psx) {
         psx_pad_detach_joy(g_psx->pad, 0);

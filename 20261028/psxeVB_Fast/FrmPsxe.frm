@@ -77,6 +77,8 @@ Private Declare Sub PSXE_Command Lib "psxe.dll" (ByVal cmdId As Long)
 Private Declare Sub PSXE_Shutdown Lib "psxe.dll" ()
 Private Declare Function PSXE_GetFPS Lib "psxe.dll" () As Single
 
+' === Sleep API 정의 (여기에 선언합니다) ===
+Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
 ' [참고] 만약 빌드 시 --kill-at 이 적용되지 않아 함수명에 @바이트수가 붙은 경우 아래 주석을 해제해 쓰세요:
 'Private Declare Function PSXE_Init Lib "psxe.dll" Alias "PSXE_Init@20" (ByVal hWnd As Long, ByVal biosPath As String, ByVal expPath As String, ByVal cdPath As String, ByVal exePath As String) As Long
@@ -145,6 +147,7 @@ Private m_bRunning As Boolean
 Private m_sBiosPath As String
 Private m_sRomPath  As String
 
+
 Private Sub Form_Load()
     ' [핵심] 프로젝트 폴더(App.Path)를 현재 작업 디렉터리로 고정하여 psxe.dll과 SDL2.dll을 찾게 함
     ChDrive App.Path
@@ -171,6 +174,7 @@ Private Sub Form_Load()
     cmdStop.Caption = "정지 (Stop)"
     cmdStop.Enabled = False
     
+  
     ' 폼 전체 크기 맞춤
     Me.Width = (640 + 32) * Screen.TwipsPerPixelX
     Me.Height = (480 + 96) * Screen.TwipsPerPixelY
@@ -201,6 +205,10 @@ End Sub
 
 ' 2. ROM(CD 이미지 또는 PS-EXE) 선택 및 에뮬레이터 실행 버튼
 Private Sub cmdSelectRom_Click()
+    DoEvents
+    ' DLL이 이전 스레드와 자원을 완전히 정리할 수 있도록 0.2초(200ms) 대기
+    Sleep 200
+    
     If m_sBiosPath = "" Then
         MsgBox "먼저 1번 버튼을 눌러 PS1 BIOS 파일(예: SCPH1001.BIN)을 선택해 주세요.", vbExclamation, "BIOS 필요"
         cmdSelectBios_Click
@@ -241,6 +249,7 @@ Private Sub StartEmulator()
         sExePath = vbNullString
     End If
     
+      
     ' psxe.dll 초기화 호출 (0 반환 시 성공)
     lRes = PSXE_Init(picScreen.hWnd, m_sBiosPath, vbNullString, sCdPath, sExePath)
     
