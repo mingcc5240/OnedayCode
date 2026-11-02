@@ -31,7 +31,6 @@ int mouseX = 0;
 int mouseY = 0;
 int mousePressed = 0;
 int mouseRange = 40;
-
 }
 
 #include "neil_controller.h"
@@ -489,7 +488,6 @@ void readConfig()
 
             counter++;
 
-
             //printf("Int %d\n", myint1);
             /*pos = line.find("ROM: ");
             if (pos == 0)
@@ -520,14 +518,12 @@ void readConfig()
 
 void readCheats()
 {
-
 #ifdef _WIN32
     //for debugging cheats
     std::string testRom(rom_name);
     if (testRom != "roms\\fzero.v64")
         return;
 #endif
-
     try
     {
         std::ifstream infile("cheat.txt");
@@ -713,23 +709,9 @@ int main(int argc, char* argv[])
         glClear(GL_COLOR_BUFFER_BIT);
         SDL_GL_SwapWindow(WindowOpenGL);
 
-
     retro_init();
 
-    sprintf(rom_name, "%s", "rr64.n64");
-    //sprintf(rom_name, "%s", "roms\\wipeout.z64");
-    //sprintf(rom_name, "%s", "roms\\pokemon_europe.z64");
-    //sprintf(rom_name, "%s", "roms\\drmario.z64");
-    //sprintf(rom_name, "%s", "roms\\mario64_europe.n64");
-    //sprintf(rom_name, "%s", "roms\\fzero.v64");
-    //sprintf(rom_name, "%s", "roms\\goldeneye.v64");
-    //sprintf(rom_name, "%s", "roms\\diddy.v64");
-    //sprintf(rom_name, "%s", "roms\\mariokart.v64");
-    //sprintf(rom_name, "%s", "roms\\pilotwings.n64");
-    //sprintf(rom_name, "%s", "roms\\drmario.z64");
-    //sprintf(rom_name, "%s", "roms\\rogue_europe.z64");
-    //sprintf(rom_name, "%s", "roms\\starcraft.z64");
-    
+    sprintf(rom_name, "%s", "rr64.n64"); 
 
     if (argc == 2)
     {
@@ -1624,11 +1606,9 @@ void drawTextOpenGL(const char* text, int x, int y, SDL_Color color, MY_FONT_SIZ
         (GLvoid*)8 //offset to this attribute - needs to be converted to a pointer (const void*)8 as an example
     );
 
-
     //need to enable this attribute in this case 0th attribute (matches first parameter of glVertexAttribPointer above)
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-
 
     char colors = surface->format->BytesPerPixel;
     int texture_format;
@@ -1653,9 +1633,7 @@ void drawTextOpenGL(const char* text, int x, int y, SDL_Color color, MY_FONT_SIZ
         6 //how many to draw
     );
 
-
     glDisable(GL_BLEND);
-
 
     glDeleteTextures(1, &texture);
     SDL_FreeSurface(surface);
